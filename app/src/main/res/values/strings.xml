@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EarnAndBurn</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="intro_text_in_top_panel">There is no try, only do and do not.</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue">
+
+    <ImageView
+        android:id="@+id/burnView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_remove"
+        android:tint="@color/white"
+        android:paddingLeft="@dimen/main_page_padding"
+        android:paddingRight="@dimen/main_page_padding" />
+
+    <GridView
+        android:id="@+id/burnGridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:gravity="center_horizontal"
+        android:horizontalSpacing="15dp"
+        android:verticalSpacing="15dp"
+        android:numColumns="3"
+        android:visibility="invisible"
+        android:stretchMode="columnWidth"
+        android:listSelector="#00000000" />
+</RelativeLayout>
