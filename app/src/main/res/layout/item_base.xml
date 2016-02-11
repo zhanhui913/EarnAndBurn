@@ -10,8 +10,7 @@
         android:id="@+id/baseIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="center"
-        custom:cv_iconSize="MEDIUM" />
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/baseName"

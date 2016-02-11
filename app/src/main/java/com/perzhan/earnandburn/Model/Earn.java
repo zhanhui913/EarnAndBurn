@@ -5,7 +5,17 @@ package com.perzhan.earnandburn.Model;
  */
 public class Earn extends Base {
 
+	private float points;
+
     public Earn(){
 
+    }
+
+    public float getPoints() {
+        return points;
+    }
+
+    public void setPoints(float points) {
+        this.points = points;
     }
 }
