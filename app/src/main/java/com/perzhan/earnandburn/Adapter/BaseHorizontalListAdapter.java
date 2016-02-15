@@ -9,11 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.perzhan.earnandburn.Model.Base;
+import com.perzhan.earnandburn.Model.Burn;
 import com.perzhan.earnandburn.Model.Earn;
 import com.perzhan.earnandburn.R;
 import com.zhan.library.CircularView;
@@ -27,7 +26,7 @@ public class BaseHorizontalListAdapter extends RecyclerView.Adapter<BaseHorizont
 
     private Activity activity;
     private List<Base> list;
-    private static BaseInterfaceListener listener;
+    private BaseInterfaceListener mListener;
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -36,7 +35,6 @@ public class BaseHorizontalListAdapter extends RecyclerView.Adapter<BaseHorizont
         // for any view that will be set as you render a row
         public TextView name;
         public CircularView circularView;
-
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -47,26 +45,12 @@ public class BaseHorizontalListAdapter extends RecyclerView.Adapter<BaseHorizont
 
             name = (TextView) itemView.findViewById(R.id.baseName);
             circularView = (CircularView) itemView.findViewById(R.id.baseIcon);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Triggers click upwards to the adapter on click
-                    if(listener != null){
-                        listener.onItemClick(getLayoutPosition());
-                    }
-                }
-            });
         }
     }
 
     public BaseHorizontalListAdapter(Activity activity, List<Base> list) {
         this.activity = activity;
         this.list = list;
-    }
-
-    public void setOnItemClickListener(BaseInterfaceListener listener){
-        this.listener = listener;
     }
 
     // Usually involves inflating a layout from XML and returning the holder
@@ -78,17 +62,26 @@ public class BaseHorizontalListAdapter extends RecyclerView.Adapter<BaseHorizont
         // Inflate the custom layout
         View view = inflater.inflate(R.layout.item_base, parent, false);
         if(this.list.size() > 0){
-            if(this.list.get(0) instanceof Earn){
-                Log.d("ZHAN","this is earn class");
+            if(this.list.get(0).getClass().equals(Earn.class)){
+
+                Log.d("ZHAN", "this is earn class -> " + this.list.get(0).getName());
                 view.setBackground(ContextCompat.getDrawable(this.activity, R.drawable.red_button));
-            }else{
-                Log.d("ZHAN","this is burn class");
+            }else if(this.list.get(0).getClass().equals(Burn.class)){
+                Log.d("ZHAN", "this is burn class -> " + this.list.get(0).getName());
                 view.setBackground(ContextCompat.getDrawable(this.activity, R.drawable.blue_button));
             }
         }
 
         // Return a new holder instance
-        ViewHolder viewHolder = new ViewHolder(view);
+        final ViewHolder viewHolder = new ViewHolder(view);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onItemClick(viewHolder.getLayoutPosition());
+            }
+        });
+
         return viewHolder;
     }
 
@@ -109,6 +102,10 @@ public class BaseHorizontalListAdapter extends RecyclerView.Adapter<BaseHorizont
     @Override
     public int getItemCount() {
         return this.list.size();
+    }
+
+    public void setOnItemClickListener(BaseInterfaceListener listener){
+        mListener = listener;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

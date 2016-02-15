@@ -10,18 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.perzhan.earnandburn.Adapter.BaseHorizontalListAdapter;
-import com.perzhan.earnandburn.Adapter.EarnGridViewAdapter;
 import com.perzhan.earnandburn.Model.Base;
 import com.perzhan.earnandburn.Model.Burn;
 import com.perzhan.earnandburn.Model.Earn;
@@ -154,25 +152,26 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+
+        burnAdapter.setOnItemClickListener(new BaseHorizontalListAdapter.BaseInterfaceListener() {
+            @Override
+            public void onItemClick(int position) {
+                Log.d("MAIN", "burn adapter:" + false);
+                //after clicking an item, close it
+                displayBurnItems(false);
+            }
+        });
+
         earnAdapter.setOnItemClickListener(new BaseHorizontalListAdapter.BaseInterfaceListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getApplicationContext(), "click on earn :" + position, Toast.LENGTH_SHORT).show();
-
+                Log.d("MAIN", "earn adapter:"+false);
                 //after clicking an item, close it
                 displayEarnItems(false);
             }
         });
 
-        burnAdapter.setOnItemClickListener(new BaseHorizontalListAdapter.BaseInterfaceListener() {
-            @Override
-            public void onItemClick(int position) {
-                Toast.makeText(getApplicationContext(), "click on burn :"+position,Toast.LENGTH_SHORT).show();
-
-                //after clicking an item, close it
-                displayBurnItems(false);
-            }
-        });
     }
 
     private String addSign(int value){
@@ -183,7 +182,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void displayEarnItems(boolean value){
+    private void displayEarnItems(boolean value){ Log.d("MAIN", "display earn items :"+value);
         if(value) { //display horizontal list view
             earnRecyclerView.setVisibility(View.VISIBLE);
             earnView.setVisibility(View.GONE);
@@ -193,7 +192,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void displayBurnItems(boolean value){
+    private void displayBurnItems(boolean value){ Log.d("MAIN", "display burn items :"+value);
         if(value){ //display horizontal list view
             burnRecyclerView.setVisibility(View.VISIBLE);
             burnView.setVisibility(View.GONE);
