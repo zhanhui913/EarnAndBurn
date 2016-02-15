@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.perzhan.earnandburn.Model.Base;
 import com.perzhan.earnandburn.R;
-import com.zhan.circularview.CircularView;
+import com.zhan.library.CircularView;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class EarnGridViewAdapter extends ArrayAdapter<Base> {
             viewHolder = new ViewHolder();
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.item_base, parent, false);
+            convertView = inflater.inflate(R.layout.item_grid_base, parent, false);
 
             viewHolder.name = (TextView) convertView.findViewById(R.id.baseName);
             viewHolder.circularView = (CircularView) convertView.findViewById(R.id.baseIcon);
@@ -65,7 +65,7 @@ public class EarnGridViewAdapter extends ArrayAdapter<Base> {
         Base item = list.get(position);
 
         viewHolder.name.setText(item.getName());
-        viewHolder.circularView.setCircleColor(Color.parseColor("#FF1123"));
+        viewHolder.circularView.setCircleColor(R.color.colorAccent);
         viewHolder.circularView.setIconDrawable(ResourcesCompat.getDrawable(this.activity.getResources(), R.drawable.ic_person, this.activity.getTheme()));
 
         return convertView;

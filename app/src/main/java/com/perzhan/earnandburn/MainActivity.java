@@ -7,6 +7,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.perzhan.earnandburn.Adapter.BaseHorizontalListAdapter;
 import com.perzhan.earnandburn.Adapter.EarnGridViewAdapter;
 import com.perzhan.earnandburn.Model.Base;
+import com.perzhan.earnandburn.Model.Burn;
+import com.perzhan.earnandburn.Model.Earn;
 import com.perzhan.earnandburn.Util.Util;
 
 import java.util.ArrayList;
@@ -35,8 +40,8 @@ public class MainActivity extends AppCompatActivity
     private ImageView earnView;
     private ImageView burnView;
 
-    private GridView earnGridView;
-    private GridView burnGridView;
+    private RecyclerView earnRecyclerView;
+    private RecyclerView burnRecyclerView;
 
     private RoundCornerProgressBar earnProgress;
     private RoundCornerProgressBar burnProgress;
@@ -46,12 +51,11 @@ public class MainActivity extends AppCompatActivity
 
     private int total = 0;
 
-    private boolean earnToggle;
-    private boolean burnToggle;
-
     private List<Base> earnList;
+    private List<Base> burnList;
 
-    private EarnGridViewAdapter earnAdapter;
+    private BaseHorizontalListAdapter earnAdapter;
+    private BaseHorizontalListAdapter burnAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +87,18 @@ public class MainActivity extends AppCompatActivity
         earnView = (ImageView) findViewById(R.id.earnView);
         burnView = (ImageView) findViewById(R.id.burnView);
 
-        earnGridView = (GridView) findViewById(R.id.earnGridView);
-        burnGridView = (GridView) findViewById(R.id.burnGridView);
+        earnRecyclerView = (RecyclerView) findViewById(R.id.earnRecyclerView);
+        burnRecyclerView = (RecyclerView) findViewById(R.id.burnRecyclerView);
 
         earnList = new ArrayList<>();
-        earnAdapter = new EarnGridViewAdapter(this, earnList);
-        earnGridView.setAdapter(earnAdapter);
+        earnAdapter = new BaseHorizontalListAdapter(this, earnList);
+        earnRecyclerView.setAdapter(earnAdapter);
+        earnRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        earnToggle = burnToggle = false;
+        burnList = new ArrayList<>();
+        burnAdapter = new BaseHorizontalListAdapter(this, burnList);
+        burnRecyclerView.setAdapter(burnAdapter);
+        burnRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         earnProgress.setMax(maxEarn);
         burnProgress.setMax(maxBurn);
@@ -103,15 +111,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void putFakeData(){
-        for(int i = 0; i < 4; i ++){
-            Base b = new Base();
-            b.setId(Util.generateUUID());
-            b.setName("Base " + i);
+        for(int i = 0; i < 14; i ++){
+            Earn earn = new Earn();
+            earn.setId(Util.generateUUID());
+            earn.setName("Earn " + i);
 
-            earnList.add(b);
+            earnList.add(earn);
+        }
+
+        for(int i = 0; i < 14; i ++){
+            Burn burn = new Burn();
+            burn.setId(Util.generateUUID());
+            burn.setName("Burn " + i);
+
+            burnList.add(burn);
         }
 
         earnAdapter.notifyDataSetChanged();
+        burnAdapter.notifyDataSetChanged();
     }
 
     private void addListeners(){
@@ -122,8 +139,7 @@ public class MainActivity extends AppCompatActivity
                 headerText.setText(addSign(total));
                 setProgressBar();
 
-                earnToggle = !earnToggle;
-                displayEarnItems(earnToggle);
+                displayEarnItems(true);
             }
         });
 
@@ -134,8 +150,27 @@ public class MainActivity extends AppCompatActivity
                 headerText.setText(addSign(total));
                 setProgressBar();
 
-                burnToggle = !burnToggle;
-                displayBurnItems(burnToggle);
+                displayBurnItems(true);
+            }
+        });
+
+        earnAdapter.setOnItemClickListener(new BaseHorizontalListAdapter.BaseInterfaceListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(getApplicationContext(), "click on earn :" + position, Toast.LENGTH_SHORT).show();
+
+                //after clicking an item, close it
+                displayEarnItems(false);
+            }
+        });
+
+        burnAdapter.setOnItemClickListener(new BaseHorizontalListAdapter.BaseInterfaceListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(getApplicationContext(), "click on burn :"+position,Toast.LENGTH_SHORT).show();
+
+                //after clicking an item, close it
+                displayBurnItems(false);
             }
         });
     }
@@ -148,22 +183,22 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void displayEarnItems(boolean value){ Toast.makeText(getApplicationContext(), "earn :"+value, Toast.LENGTH_SHORT).show();
-        if(value) { //display grid view
-            earnGridView.setVisibility(View.VISIBLE);
+    private void displayEarnItems(boolean value){
+        if(value) { //display horizontal list view
+            earnRecyclerView.setVisibility(View.VISIBLE);
             earnView.setVisibility(View.GONE);
-        }else{ //hide grid view
-            earnGridView.setVisibility(View.GONE);
+        }else{ //hide horizontal list view
+            earnRecyclerView.setVisibility(View.GONE);
             earnView.setVisibility(View.VISIBLE);
         }
     }
 
-    private void displayBurnItems(boolean value){ Toast.makeText(getApplicationContext(), "burn :"+value, Toast.LENGTH_SHORT).show();
-        if(value){
-            burnGridView.setVisibility(View.VISIBLE);
+    private void displayBurnItems(boolean value){
+        if(value){ //display horizontal list view
+            burnRecyclerView.setVisibility(View.VISIBLE);
             burnView.setVisibility(View.GONE);
-        }else{
-            burnGridView.setVisibility(View.GONE);
+        }else{ //hide horizontal list view
+            burnRecyclerView.setVisibility(View.GONE);
             burnView.setVisibility(View.VISIBLE);
         }
     }

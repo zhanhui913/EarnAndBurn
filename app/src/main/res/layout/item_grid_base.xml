@@ -2,26 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:padding="5dp">
+    android:layout_height="wrap_content">
 
     <com.zhan.library.CircularView
         android:id="@+id/baseIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        custom:cv_bgRadius="30dp"
         custom:cv_iconTopPadding="5dp"
         custom:cv_iconBottomPadding="5dp"
         custom:cv_iconLeftPadding="5dp"
         custom:cv_iconRightPadding="5dp"
         custom:cv_iconDrawable="@drawable/ic_person"
-        custom:cv_iconColor="@color/white"/>
+        custom:cv_iconColor="@color/white"
+        android:layout_centerInParent="true" />
 
     <TextView
         android:id="@+id/baseName"
@@ -34,6 +28,5 @@
         android:textSize="15sp"
         android:layout_below="@+id/baseIcon"
         android:layout_centerHorizontal="true" />
-    </RelativeLayout>
 </RelativeLayout>
 

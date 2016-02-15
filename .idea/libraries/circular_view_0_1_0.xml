@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="circular-view-0.1.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.zhanhui913/circular-view/0.1.0/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.zhanhui913/circular-view/0.1.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.zhanhui913/circular-view/0.1.0/5de916ca23a5cf84d69b536026a9664840865588/circular-view-0.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
