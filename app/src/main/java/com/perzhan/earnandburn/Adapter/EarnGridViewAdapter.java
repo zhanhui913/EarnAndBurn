@@ -1,8 +1,6 @@
 package com.perzhan.earnandburn.Adapter;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +64,7 @@ public class EarnGridViewAdapter extends ArrayAdapter<Base> {
 
         viewHolder.name.setText(item.getName());
         viewHolder.circularView.setCircleColor(R.color.colorAccent);
-        viewHolder.circularView.setIconDrawable(ResourcesCompat.getDrawable(this.activity.getResources(), R.drawable.ic_person, this.activity.getTheme()));
+        viewHolder.circularView.setIconResource(R.drawable.ic_person);
 
         return convertView;
     }

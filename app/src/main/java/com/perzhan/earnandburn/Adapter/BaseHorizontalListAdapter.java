@@ -3,7 +3,6 @@ package com.perzhan.earnandburn.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -95,7 +94,7 @@ public class BaseHorizontalListAdapter extends RecyclerView.Adapter<BaseHorizont
         // Set item views based on the data model
         viewHolder.name.setText(item.getName());
         viewHolder.circularView.setCircleColor(R.color.colorAccent);
-        viewHolder.circularView.setIconDrawable(ResourcesCompat.getDrawable(this.activity.getResources(), R.drawable.ic_person, this.activity.getTheme()));
+        viewHolder.circularView.setIconResource(R.drawable.ic_person);
     }
 
     // Return the total count of items

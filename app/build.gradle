@@ -25,5 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
-    compile 'com.github.zhanhui913:circular-view:0.1.0'
+    compile 'com.github.zhanhui913:circular-view:0.2.1'
+
 }
